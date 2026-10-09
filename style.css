@@ -1,0 +1,951 @@
+/* ================================
+   GLOBAL
+================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    color: #f8fafc;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    /* Background gradient bergerak */
+    background: linear-gradient(
+        315deg,
+        #0b1226 3%,
+        #1d4ed8 38%,
+        #059669 68%,
+        #be123c 98%
+    );
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+
+/* ================================
+   CONTAINER
+================================ */
+
+.main-container {
+    max-width: 900px;
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ================================
+   ANIMATED BACKGROUND (WAVE)
+================================ */
+
+.background-animation {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.wave {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 200%;
+    height: 12em;
+
+    background: rgb(255 255 255 / 12%);
+    border-radius: 1000% 1000% 0 0;
+
+    opacity: 0.8;
+    transform: translate3d(0, 0, 0);
+    animation: wave 10s -3s linear infinite;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    opacity: 0.8;
+    animation: wave 18s linear reverse infinite;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    opacity: 0.9;
+    animation: wave 20s -1s reverse infinite;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+.navbar-wrapper {
+    background: rgba(2, 6, 23, 0.021);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+    z-index: 200;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #4f46e5;
+
+    box-shadow:
+        0 8px 25px rgba(79, 70, 229, 0.3);
+}
+
+.help-button {
+    color: #fecaca;
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    padding: 7px 13px;
+
+    border-radius: 999px;
+
+    background: rgba(239, 68, 68, 0.18);
+    border: 1px solid rgba(254, 202, 202, 0.4);
+
+    transition: 0.25s ease;
+}
+
+.help-button:hover {
+    color: #fff;
+    background: rgba(239, 68, 68, 0.35);
+
+    transform: translateY(-1px);
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero-section {
+    animation: heroAppear 0.8s ease both;
+}
+
+@keyframes heroAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.gradient-text {
+    background: linear-gradient(
+        135deg,
+        #7dd3fc,
+        #6ee7b7
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.danger-text {
+    color: #fca5a5;
+}
+
+.hero-description {
+    color: #e2e8f0;
+    max-width: 600px;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* ================================
+   GLASS CARD (TERANG + BLUR)
+================================ */
+
+.glass-card {
+    position: relative;
+    overflow: hidden;
+
+    color: #0f172a;
+
+    background: rgba(255, 255, 255, 0.72);
+
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+
+    border: 1px solid rgba(255, 255, 255, 0.65);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 50px rgba(2, 6, 23, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    /* Animasi masuk saat halaman dibuka (muncul satu per satu) */
+    animation: cardIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.main-container > section:nth-of-type(2) {
+    animation-delay: 0.15s;
+}
+
+.main-container > section:nth-of-type(3) {
+    animation-delay: 0.3s;
+}
+
+.main-container > section:nth-of-type(4) {
+    animation-delay: 0.45s;
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Kilau cahaya yang melintas saat kartu di-hover */
+.glass-card::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -60%;
+
+    width: 40%;
+    height: 100%;
+
+    pointer-events: none;
+
+    background: linear-gradient(
+        105deg,
+        transparent,
+        rgba(255, 255, 255, 0.55),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 28px 60px rgba(2, 6, 23, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.glass-card:hover::after {
+    left: 130%;
+    transition: left 0.9s ease;
+}
+
+
+/* ================================
+   FEATURE HEADINGS
+================================ */
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    font-size: 20px;
+
+    transition: transform 0.3s ease;
+}
+
+.glass-card:hover .feature-icon {
+    transform: rotate(-8deg) scale(1.1);
+}
+
+.feature-icon.blue {
+    color: #2563eb;
+    background: rgba(59, 130, 246, 0.16);
+}
+
+.feature-icon.green {
+    color: #059669;
+    background: rgba(16, 185, 129, 0.16);
+}
+
+.feature-icon.red {
+    color: #dc2626;
+    background: rgba(239, 68, 68, 0.16);
+}
+
+.feature-title {
+    margin: 0;
+
+    color: #0f172a;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.feature-description {
+    color: #475569;
+    font-size: 11px;
+}
+
+
+/* ================================
+   INPUT
+================================ */
+
+.custom-label {
+    color: #334155;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.custom-input {
+    color: #0f172a !important;
+
+    background: rgba(255, 255, 255, 0.9) !important;
+
+    border: 1px solid #cbd5e1 !important;
+
+    border-radius: 11px !important;
+
+    font-size: 13px;
+
+    transition: 0.2s ease;
+}
+
+.custom-input:focus {
+    border-color: #10b981 !important;
+
+    box-shadow:
+        0 0 0 4px rgba(16, 185, 129, 0.18) !important;
+}
+
+.custom-input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* ================================
+   SEARCH
+================================ */
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+
+    left: 16px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #64748b;
+
+    z-index: 3;
+}
+
+.search-input {
+    padding-left: 42px;
+    min-height: 45px;
+}
+
+
+/* ================================
+   SUGGESTIONS
+================================ */
+
+.suggestion-label {
+    color: #475569;
+    font-size: 11px;
+}
+
+.suggestion-button {
+    color: #334155;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 8px;
+
+    padding: 5px 10px;
+
+    font-size: 11px;
+
+    transition: 0.2s ease;
+}
+
+.suggestion-button:hover {
+    color: #0f172a;
+    background: #fff;
+    transform: translateY(-1px);
+}
+
+
+/* ================================
+   SEARCH RESULT
+================================ */
+
+.search-result {
+    font-size: 12px;
+
+    animation: resultPop 0.35s ease;
+}
+
+@keyframes resultPop {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-legal {
+    color: #065f46;
+
+    background: rgba(209, 250, 229, 0.9);
+
+    border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.result-illegal {
+    color: #991b1b;
+
+    background: rgba(254, 226, 226, 0.92);
+
+    border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+
+/* ================================
+   CALCULATOR TABS
+================================ */
+
+.calc-tabs {
+    background: rgba(15, 23, 42, 0.08);
+    border-radius: 12px;
+}
+
+.calc-tab {
+    width: 100%;
+
+    border: 0;
+
+    padding: 10px;
+
+    border-radius: 9px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+.calc-tab.active-pin {
+    color: #fff;
+    background: #4f46e5;
+
+    box-shadow:
+        0 8px 20px rgba(79, 70, 229, 0.3);
+}
+
+.calc-tab.active-judol {
+    color: #fff;
+    background: #dc2626;
+
+    box-shadow:
+        0 8px 20px rgba(220, 38, 38, 0.3);
+}
+
+.calc-tab.inactive {
+    color: #475569;
+    background: transparent;
+}
+
+.calc-tab.inactive:hover {
+    color: #0f172a;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+
+/* ================================
+   RESULT PANEL
+================================ */
+
+.result-panel {
+    background: rgba(255, 255, 255, 0.55);
+
+    border: 1px solid rgba(15, 23, 42, 0.1);
+
+    border-radius: 13px;
+
+    padding: 16px;
+}
+
+.result-card {
+    background: rgba(255, 255, 255, 0.85);
+
+    border: 1px solid rgba(15, 23, 42, 0.08);
+
+    border-radius: 10px;
+
+    padding: 13px;
+}
+
+.result-label {
+    display: block;
+
+    color: #475569;
+
+    font-size: 11px;
+
+    margin-bottom: 4px;
+}
+
+.result-value {
+    display: block;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+/* Kuning bawaan Bootstrap kurang kebaca di background terang */
+.result-value.text-warning {
+    color: #b45309 !important;
+}
+
+.result-value.text-danger {
+    color: #dc2626 !important;
+}
+
+
+/* ================================
+   RISK BAR
+================================ */
+
+.risk-label {
+    color: #0f172a;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.risk-text {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.risk-text.warning {
+    color: #b45309;
+}
+
+.risk-text.safe {
+    color: #047857;
+}
+
+.risk-text.danger {
+    color: #b91c1c;
+}
+
+.risk-progress {
+    height: 11px;
+
+    overflow: hidden;
+
+    background: rgba(15, 23, 42, 0.12);
+
+    border-radius: 999px;
+}
+
+.risk-bar {
+    height: 100%;
+
+    border-radius: inherit;
+
+    width: 75%;
+
+    transition:
+        width 0.5s ease,
+        background 0.5s ease;
+}
+
+.risk-bar.low {
+    background: linear-gradient(
+        90deg,
+        #10b981,
+        #22c55e
+    );
+}
+
+.risk-bar.medium {
+    background: linear-gradient(
+        90deg,
+        #eab308,
+        #f59e0b
+    );
+}
+
+.risk-bar.high {
+    background: linear-gradient(
+        90deg,
+        #f59e0b,
+        #dc2626
+    );
+}
+
+
+/* ================================
+   CONTACT
+================================ */
+
+.contact-card {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    height: 100%;
+
+    padding: 13px;
+
+    color: #0f172a;
+    text-decoration: none;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    border: 1px solid rgba(15, 23, 42, 0.1);
+
+    border-radius: 11px;
+
+    transition: 0.25s ease;
+}
+
+.contact-card:hover {
+    color: #0f172a;
+
+    background: #fff;
+
+    border-color: rgba(16, 185, 129, 0.6);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+.contact-icon {
+    font-size: 19px;
+}
+
+.green-icon {
+    color: #059669;
+}
+
+.blue-icon {
+    color: #2563eb;
+}
+
+.contact-card span {
+    display: block;
+
+    color: #475569;
+
+    font-size: 10px;
+}
+
+.contact-card strong {
+    display: block;
+
+    font-size: 12px;
+}
+
+
+/* ================================
+   ANONYMOUS FORM
+================================ */
+
+.anonymous-form {
+    background: rgba(255, 255, 255, 0.5);
+
+    border: 1px solid rgba(15, 23, 42, 0.1);
+
+    border-radius: 12px;
+
+    padding: 16px;
+}
+
+.anonymous-title {
+    color: #334155;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.06em;
+}
+
+.anonymous-title i {
+    color: #64748b;
+}
+
+.textarea-input {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.submit-button {
+    width: 100%;
+
+    border: 0;
+
+    padding: 10px;
+
+    color: #fff;
+
+    background: linear-gradient(
+        90deg,
+        #dc2626,
+        #e11d48
+    );
+
+    border-radius: 10px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+.submit-button:hover {
+    transform: translateY(-1px);
+
+    filter: brightness(1.1);
+
+    box-shadow:
+        0 8px 25px rgba(225, 29, 72, 0.3);
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+.footer {
+    position: relative;
+    z-index: 2;
+
+    padding: 18px;
+
+    text-align: center;
+
+    color: #e2e8f0;
+
+    font-size: 10px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 576px) {
+
+    .glass-card {
+        border-radius: 15px;
+    }
+
+    .feature-title {
+        font-size: 15px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .help-button span {
+        display: none;
+    }
+
+    .help-button {
+        padding: 8px 11px;
+    }
+
+    .brand-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+}
+
+
+/* ================================
+   HP / LAYAR SENTUH
+   (tidak ada hover, jadi kilau jalan
+   otomatis dan ada efek saat disentuh)
+================================ */
+
+@media (hover: none) {
+
+    .glass-card::after {
+        animation: shineLoop 6s ease-in-out infinite;
+    }
+
+    .glass-card:nth-of-type(3)::after {
+        animation-delay: 1.5s;
+    }
+
+    .glass-card:nth-of-type(4)::after {
+        animation-delay: 3s;
+    }
+
+    .glass-card:active {
+        transform: scale(0.985);
+    }
+
+    .glass-card .feature-icon {
+        animation: iconWiggle 6s ease-in-out infinite;
+    }
+}
+
+@keyframes shineLoop {
+    0%,
+    60% {
+        left: -60%;
+    }
+
+    100% {
+        left: 130%;
+    }
+}
+
+@keyframes iconWiggle {
+    0%,
+    60%,
+    100% {
+        transform: rotate(0) scale(1);
+    }
+
+    70% {
+        transform: rotate(-8deg) scale(1.1);
+    }
+
+    80% {
+        transform: rotate(6deg) scale(1.1);
+    }
+}
+
+
+/* ================================
+   MODE KURANGI GERAKAN
+   (otomatis mematikan animasi kalau
+   pengguna mengaktifkannya di HP)
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    body,
+    .wave,
+    .hero-section,
+    .glass-card,
+    .search-result {
+        animation: none;
+    }
+
+    .glass-card::after {
+        display: none;
+    }
+
+    .glass-card .feature-icon {
+        animation: none;
+    }
+}
